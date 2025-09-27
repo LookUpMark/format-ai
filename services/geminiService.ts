@@ -51,9 +51,9 @@ Every set of notes you generate, regardless of the input content, MUST look like
 
 **Special Rendering Instructions:**
 1.  **Mathematical Equations (LaTeX):**
-    -   When you encounter LaTeX math, like \`$E=mc^2$\` (inline) or \`$$ \\int_0^\\infty e^{-x^2} dx = \\frac{\\sqrt{\\pi}}{2} $$\` (block), you MUST preserve it exactly as is.
+    -   When you encounter LaTeX math, like \`$E=mc^2$\` (inline) or \`$$ \\int_0^\\infty e^{-x^2} dx = \\frac{\\sqrt\\pi}{2} $$\` (block), you MUST preserve it exactly as is.
     -   Wrap inline equations in \`<span>\`. Example: \`<span>$E=mc^2$</span>\`.
-    -   Wrap block equations in \`<div>\`. Example: \`<div>$$ \\int_0^\\infty e^{-x^2} dx = \\frac{\\sqrt{\\pi}}{2} $$</div>\`.
+    -   Wrap block equations in \`<div>\`. Example: \`<div>$$ \\int_0^\\infty e^{-x^2} dx = \\frac{\\sqrt\\pi}{2} $$</div>\`.
     -   The client-side KaTeX library will handle the rendering. DO NOT convert them to MathML or other formats.
 
 2.  **Mermaid.js Diagrams:**
@@ -63,16 +63,13 @@ Every set of notes you generate, regardless of the input content, MUST look like
     -   **Mermaid Syntax - Source of Truth:** You MUST assume the following examples are the only valid syntaxes for Mermaid diagrams. Do not deviate.
 
     ### Flowchart
-    \`\`\`
     flowchart LR
     A[Hard] -->|Text| B(Round)
     B --> C{Decision}
     C -->|One| D[Result 1]
     C -->|Two| E[Result 2]
-    \`\`\`
 
     ### Sequence diagram
-    \`\`\`
     sequenceDiagram
     Alice->>John: Hello John, how are you?
     loop HealthCheck
@@ -82,10 +79,8 @@ Every set of notes you generate, regardless of the input content, MUST look like
     John-->>Alice: Great!
     John->>Bob: How about you?
     Bob-->>John: Jolly good!
-    \`\`\`
 
     ### Gantt chart
-    \`\`\`
     gantt
         section Section
         Completed :done,    des1, 2014-01-06,2014-01-08
@@ -94,10 +89,8 @@ Every set of notes you generate, regardless of the input content, MUST look like
         Parallel 2   :         des4, after des1, 1d
         Parallel 3   :         des5, after des3, 1d
         Parallel 4   :         des6, after des4, 1d
-    \`\`\`
 
     ### Class diagram
-    \`\`\`
     classDiagram
     Class01 <|-- AveryLongClass : Cool
     <<Interface>> Class01
@@ -114,10 +107,8 @@ Every set of notes you generate, regardless of the input content, MUST look like
       int id
       size()
     }
-    \`\`\`
 
     ### State diagram
-    \`\`\`
     stateDiagram-v2
     [*] --> Still
     Still --> [*]
@@ -125,18 +116,14 @@ Every set of notes you generate, regardless of the input content, MUST look like
     Moving --> Still
     Moving --> Crash
     Crash --> [*]
-    \`\`\`
 
     ### Pie chart
-    \`\`\`
     pie
     "Dogs" : 386
     "Cats" : 85.9
     "Rats" : 15
-    \`\`\`
 
     ### Git graph
-    \`\`\`
     gitGraph
       commit
       commit
@@ -148,10 +135,8 @@ Every set of notes you generate, regardless of the input content, MUST look like
       merge develop
       commit
       commit
-    \`\`\`
 
     ### User Journey diagram
-    \`\`\`
       journey
         title My working day
         section Go to work
@@ -161,10 +146,8 @@ Every set of notes you generate, regardless of the input content, MUST look like
         section Go home
           Go downstairs: 5: Me
           Sit down: 3: Me
-    \`\`\`
 
     ### C4 diagram
-    \`\`\`
     C4Context
     title System Context diagram for Internet Banking System
 
@@ -197,7 +180,6 @@ Every set of notes you generate, regardless of the input content, MUST look like
     BiRel(SystemAA, SystemE, "Uses")
     Rel(SystemAA, SystemC, "Sends e-mails", "SMTP")
     Rel(SystemC, customerA, "Sends e-mails to")
-    \`\`\`
 
 
 **Output Format:**
@@ -223,11 +205,21 @@ export const generateNotesHtml = async (text: string): Promise<string> => {
     const userMessage = `Here is the user's text to convert:\n---\n${text}\n---`;
     const response = await chat.sendMessage({ message: userMessage });
     
-    // Clean up potential markdown code block fences
-    const html = response.text
+    // Clean up potential markdown code block fences from the overall response
+    let html = response.text
       .replace(/^```html\s*/, '')
       .replace(/```$/, '')
       .trim();
+
+    // Aggressively clean up mermaid blocks specifically
+    html = html.replace(/(<pre class="mermaid">)([\s\S]*?)(<\/pre>)/g, (match, startTag, content, endTag) => {
+        const cleanedContent = content
+            .replace(/^```mermaid\s*/, '') // Remove opening ```mermaid fence
+            .replace(/^```\s*/, '')        // Remove opening ``` fence
+            .replace(/```\s*$/, '')       // Remove closing ``` fence
+            .trim();
+        return `${startTag}${cleanedContent}${endTag}`;
+    });
       
     return html;
   } catch (error) {
