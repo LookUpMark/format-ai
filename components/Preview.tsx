@@ -5,11 +5,11 @@ interface PreviewProps {
 }
 
 const getFullHtmlPage = (bodyContent: string): string => `<!DOCTYPE html>
-<html lang="it">
+<html lang="en">
     <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>I tuoi Appunti</title>
+      <title>Your Notes</title>
       <script src="https://cdn.tailwindcss.com"></script>
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
       <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
@@ -111,11 +111,11 @@ const Preview: React.FC<PreviewProps> = ({ htmlContent }) => {
       <div className="flex items-center space-x-2 mb-4 border-b border-zinc-800 pb-3">
         <button onClick={handleCopy} className="flex items-center px-3 py-1.5 text-sm bg-zinc-800 text-zinc-300 rounded-md hover:bg-zinc-700 transition">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">{isCopied ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /> : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />}</svg>
-          {isCopied ? 'Copiato!' : 'Copia HTML'}
+          {isCopied ? 'Copied!' : 'Copy HTML'}
         </button>
         <button onClick={handleOpenInNewTab} className="flex items-center px-3 py-1.5 text-sm bg-zinc-800 text-zinc-300 rounded-md hover:bg-zinc-700 transition">
            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-          Apri in una nuova scheda
+          Open in new tab
         </button>
       </div>
       <div 

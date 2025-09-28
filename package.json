@@ -1,5 +1,5 @@
 {
-  "name": "appunti-intelligenti",
+  "name": "smart-notes",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,9 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@google/genai": "^1.21.0",
+    "openai": "^5.23.1",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "@google/genai": "^1.21.0"
+    "react-dom": "^19.1.1"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",

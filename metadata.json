@@ -1,5 +1,5 @@
 {
-  "name": "Appunti Intelligenti",
+  "name": "Smart Notes",
   "description": "Converts your text, markdown, or text files into beautifully styled, consistent HTML notes. Perfect for studying, sharing, and selling. Powered by Gemini, with excellent rendering for math equations and Mermaid diagrams.",
   "requestFramePermissions": []
 }
