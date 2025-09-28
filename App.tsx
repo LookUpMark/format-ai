@@ -5,8 +5,8 @@ import { Provider, generateNotesHtml, getDefaultModel } from './services/aiServi
 const Header: React.FC = () => (
   <header className="border-b border-zinc-800">
     <div className="container mx-auto px-6 py-4">
-      <h1 className="text-3xl font-bold text-zinc-100">Smart Notes ✨</h1>
-      <p className="text-zinc-400 mt-1">Transform raw text into beautifully formatted notes.</p>
+      <h1 className="text-3xl font-bold text-zinc-100">FormatAI ✨</h1>
+      <p className="text-zinc-400 mt-1">Transform raw text into beautifully formatted content.</p>
     </div>
   </header>
 );
@@ -224,7 +224,7 @@ const App: React.FC = () => {
                 disabled={isLoading || !inputText}
                 className="w-full bg-orange-500 text-white font-bold py-3 px-4 rounded-md hover:bg-orange-600 transition duration-200 disabled:bg-orange-400/50 disabled:cursor-not-allowed flex items-center justify-center"
               >
-                {isLoading ? 'Generating...' : 'Create Notes'}
+                {isLoading ? 'Generating...' : 'Format Content'}
               </button>
             </div>
           </div>
