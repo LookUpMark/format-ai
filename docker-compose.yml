@@ -1,0 +1,50 @@
+services:
+  formatai:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: formatai-app
+    restart: unless-stopped
+    ports:
+      - "5175:5175"
+    environment:
+      - NODE_ENV=production
+      # API Keys (uncomment and set your keys)
+      # - GEMINI_API_KEY=your_gemini_api_key_here
+      # - OPENROUTER_API_KEY=your_openrouter_api_key_here
+    volumes:
+      # Optional: Mount nginx logs for debugging
+      - nginx-logs:/var/log/nginx
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5175/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - formatai-network
+    # Security settings
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+      - NET_BIND_SERVICE
+    tmpfs:
+      - /tmp
+      - /var/cache/nginx
+      - /var/run/nginx
+
+volumes:
+  nginx-logs:
+    driver: local
+
+networks:
+  formatai-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
