@@ -1,17 +1,17 @@
 services:
-  formatai:
+  format-ai:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        GEMINI_API_KEY: ${GEMINI_API_KEY}
+        OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
     container_name: formatai-app
     restart: unless-stopped
     ports:
       - "5175:5175"
     environment:
       - NODE_ENV=production
-      # API Keys (uncomment and set your keys)
-      # - GEMINI_API_KEY=your_gemini_api_key_here
-      # - OPENROUTER_API_KEY=your_openrouter_api_key_here
     volumes:
       # Optional: Mount nginx logs for debugging
       - nginx-logs:/var/log/nginx

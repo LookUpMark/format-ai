@@ -13,6 +13,14 @@ RUN npm ci
 # Copy source code
 COPY . .
 
+# Build arguments for API keys
+ARG GEMINI_API_KEY
+ARG OPENROUTER_API_KEY
+
+# Set environment variables for the build process
+ENV GEMINI_API_KEY=${GEMINI_API_KEY}
+ENV OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+
 # Build the application
 RUN npm run build
 
