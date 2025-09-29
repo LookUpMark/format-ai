@@ -77,4 +77,20 @@ Stay tuned for upcoming features:
 
 ---
 
-**Full Changelog**: https://github.com/LookUpMark/format-ai/commits/v1.0.0
+## [1.0.1] - 2025-09-29
+
+### 🎨 Improved - Mermaid.js Diagram Formatting
+- **Enhanced Diagram Rendering**: Improved Mermaid.js formatting rules for better diagram compatibility
+- **Quote Consistency**: All labels and texts now properly enclosed in double quotes
+- **Arrow Direction**: Standardized left-to-right arrow notation for consistency
+- **Direction Declarations**: All flowcharts now use LR (Left to Right) direction
+- **Special Character Support**: Better handling of special characters in diagram labels
+
+### 🔧 Technical Improvements
+- **Enhanced Prompt System**: Updated AI service with comprehensive Mermaid.js formatting rules
+- **Better Error Prevention**: Prevents rendering issues with special characters in diagrams
+- **Consistent Output**: Ensures uniform diagram appearance across all supported types
+
+---
+
+**Full Changelog**: https://github.com/LookUpMark/format-ai/commits/v1.0.1
