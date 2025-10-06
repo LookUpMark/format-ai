@@ -201,6 +201,7 @@ const getOpenAIClient = async (apiKey: string): Promise<OpenAI> => {
     openaiClient = new OpenAI({
       apiKey: apiKey,
       baseURL: 'https://openrouter.ai/api/v1',
+      dangerouslyAllowBrowser: true,
     });
   }
   return openaiClient;
